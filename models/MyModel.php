@@ -8,8 +8,9 @@ class MyModel extends Model
     public static function getImage()
     {
         $data = [
-            'drea.jpg',
-            'we.jpg'
+            'Девушка в традиционной одежде' => 'japan.jpg',
+            'Цветение сакуры' => 'japan2.jpg',
+            'Японское искусство' => 'japan3.jpg',
         ];
         return $data;
     } 

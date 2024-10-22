@@ -7,10 +7,10 @@ use yii\web\Controller;
 
 class MyController  extends Controller 
 {
-    public function actionHello()
+    public function actionPhoto()
     {
         $data = MyModel::getImage();
-        return $this->render('index', compact('data'));
+        return $this->render('photo', compact('data'));
     }
     public function actionHelloUser()
     {

@@ -42,8 +42,9 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
-            ['label' => 'My page', 'url' => ['/my/hello']],
             ['label' => 'Регистрация', 'url' => ['/site/register']],
+            ['label' => 'Photo', 'url' => ['/my/photo']],
+            ['label' => 'Slider', 'url' => ['/slider/carousel']],
             Yii::$app->user->isGuest
                 ? ['label' => 'Login', 'url' => ['/site/login']]
                 : '<li class="nav-item">'
