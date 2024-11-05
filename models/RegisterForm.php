@@ -24,14 +24,16 @@ class RegisterForm extends Model
             [ ['name', 'surname', 'login', 'email', 'phone', 'password', 'password_repeat'], 'required'],
             [ ['name', 'surname', 'patronymic', 'login', 'email', 'phone', 'password', 'password_repeat'], 'string', 'max' =>  255 ],
             [['name', 'surname', 'patronymic'] ,'match', 'pattern' => '/^[а-яё\s\-]+$/ui', 'message' => 'Только кирилицца, пробел, тире'],
-            [['login'] ,'match', 'pattern' => '/^[a-z\d\-]+$/ui', 'message' => 'Только кирилицца, пробел, тире'],
+            ['login' ,'match', 'pattern' => '/^[a-z\d\-]+$/ui', 'message' => 'Только кирилицца, пробел, тире'],
             ['email', 'email'],
-            [['password'] ,'string', 'min' => 6],
-            [['password'] ,'match', 'pattern' => '/^[a-z0-9]{6,}$/i', 'message' => 'Не менее 6 символов'],
-            [['password_repeat'], 'compare', 'compareAttribute' => 'password'],
+            // [['password'] ,'string', 'min' => 6],
+            ['password' ,'match', 'pattern' => '/^[a-z0-9]{6,}$/i', 'message' => 'Не менее 6 символов'],
+            ['password_repeat', 'compare', 'compareAttribute' => 'password'],
             ['rules', 'required', 'requiredValue' => 1, 'message' => 'Необходимо согласиться с правилами регистации'],
-            // ['phone', 'match', 'pattern' => '/^\+7\([\d]{3}\)\-[\d]{3}(\-[\d]{2}){2}$/'],
-            [['login'], 'unique', 'targetClass' => User::class]
+            ['phone', 'match', 'pattern' => '/^\+7\([\d]{3}\)\-[\d]{3}(\-[\d]{2}){2}$/'],
+                                            //  '/^\+7\(\d{3}\)\-\d{3}(\-\d{2}){2}$/'
+
+            ['login', 'unique', 'targetClass' => User::class]
         ];
     }
 

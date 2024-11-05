@@ -121,8 +121,6 @@ class User extends ActiveRecord implements IdentityInterface
     }
     public static function findByUsername($login)
     {
-
-
         return self::findOne(['login' => $login]);
     }
     public function validatePassword($password)

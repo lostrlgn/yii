@@ -63,7 +63,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        VarDumper::dump(Yii::$app->user->identity?->isAdmin); die;
         return $this->render('index');
     }
 
@@ -80,7 +79,10 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return 
+                    Yii::$app->user->identity->isAdmin
+                        ? $this->redirect('/admin')
+                        : $this->goHome();
         }
 
         $model->password = '';
@@ -132,16 +134,16 @@ class SiteController extends Controller
     {
         $model = new RegisterForm();
 
-        if(Yii::$app->request->isPost && $model->load(Yii::$app->request->post())) {
+        if($model->load(Yii::$app->request->post())) {
             if($user = $model->register()){
                 Yii::$app->user->login($user, 60*60);
-                return $this->goHome();
-                // VarDumper::dump($user, 1, true); die;
+
+                return 
+                    Yii::$app->user->identity->isAdmin
+                        ? $this->redirect('/admin')
+                        : $this->goHome();
             }
-            // $model->load(Yii::$app->request->post());
-            // VarDumper::dump(Yii::$app->request->post(), 10, true); 
-            // $model->name = Yii::$app->request->post('RegisterForm')['name'];
-            // VarDumper::dump($model->attributes, 10, true); die;
+
         }
         return $this->render('register', compact('model'));
     }
