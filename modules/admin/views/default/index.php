@@ -3,8 +3,8 @@
 use yii\bootstrap5\Html;
 
 ?>
-
 <div class="admin-default-index">
-    <h1>Панель администратора</h1>
-    <?= Html::a('Управление категориями', ['/admin/category'], ['class' => 'btn btn-primary']) ?>
+    <h3>Панель администратора</h3>
+    <?= Html::a('Управление категориями', ['/admin/category'], ['class' => 'btn  btn-category']) ?>
+    <?= Html::a('Управление товарами', ['/admin/product'], ['class' => 'btn  btn-category']) ?>
 </div>

@@ -2,11 +2,10 @@
 
 namespace app\models;
 
+use Symfony\Component\VarDumper\VarDumper;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
-
-
 
 /**
  * This is the model class for table "user".
@@ -79,6 +78,18 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasOne(Role::class, ['id' => 'role_id']);
     }
+/*{
+	"Куки запроса": {
+		
+		"_identity": "f4d0861be366d25e768b9b0bb2638de53502809ba5ad7e0fd17419c4f99cbfa8a:2:
+        {i:0;s:9:\"_identity\";i:1;
+        s:41:\"
+        [1,\"sadjkhfkajshdflkjahsdlfkjha\",2592000]\";}",
+		
+	}
+}
+*/
+
     public static function findIdentity($id)
     {
         return static::findOne($id);
@@ -103,6 +114,26 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->id;
     }
 
+        /**
+     * Gets query for [[Favorites]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFavorites()
+    {
+        return $this->hasMany(Favorite::class, ['user_id' => 'id']);
+    }
+
+        /**
+     * Gets query for [[Orders]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOrders()
+    {
+        return $this->hasMany(Order::class, ['user_id' => 'id']);
+    }
+
     /**
      * @return string|null current user auth key
      */
@@ -119,16 +150,37 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->getAuthKey() === $authKey;
     }
+
     public static function findByUsername($login)
     {
         return self::findOne(['login' => $login]);
     }
+    
+    
     public function validatePassword($password)
     {
+        // VarDumper::dump($password); 
+        // VarDumper::dump($this->attributes); die;
         return Yii::$app->security->validatePassword($password, $this->password);
     }
+
+
     public function getIsAdmin(): bool
     {
         return $this->role_id == Role::getRoleId('admin');
     }
+
+    public function getUserLogin(): string
+    {
+        return $this->login;
+    }
+
+     /**
+     * Gets query for [[Favorites]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+
+
+    
 }

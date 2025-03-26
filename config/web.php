@@ -7,16 +7,21 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
-    'name' => 'Agency Photo',
-    'language' => 'ru-RU',
+    'name' => 'my company',
+    'language' => 'ru-RU',    
+    'defaultRoute' => 'catalog2',
+    
+
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+        
     ],
+
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'fjdsdkdv',
+            'cookieValidationKey' => 'fghfdgh',
             'baseUrl' => '',
         ],
         'cache' => [
@@ -45,19 +50,28 @@ $config = [
             ],
         ],
         'db' => $db,
+        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
+        
     ],
+    
     'modules' => [
         'admin' => [
             'class' => 'app\modules\admin\Module',
+            'defaultRoute' => 'order/index' // controller/action
+        ],
+        'account' => [
+            'class' => 'app\modules\account\Module',
+            'defaultRoute' => 'order/index'
         ],
     ],
-    'params' => $params,
+
+    'params' => $params,    
 ];
 
 if (YII_ENV_DEV) {

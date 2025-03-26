@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php ActiveForm::end(); ?>
 
             <div style="color:#999;">
-                В системе зарегистрированы:  <strong>администратор - admin/123456</strong> и <strong>пользователь - user/123456</strong>.<br>
+                В системе зарегистрированы: <strong>администратор - q/q</strong> и <strong>пользователь - user/123123</strong>
             </div>
 
         </div>

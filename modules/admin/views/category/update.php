@@ -1,11 +1,14 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\VarDumper;
 
 /** @var yii\web\View $this */
 /** @var app\models\Category $model */
 
-$this->title = 'Изменение категории: ' . $model->title;
+$this->title = 'Редактирование категории: ' . $model->title;
+
+// VarDumper::dump($this, 10, true); die;
 
 ?>
 <div class="category-update">

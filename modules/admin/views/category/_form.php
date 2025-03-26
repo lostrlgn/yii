@@ -16,10 +16,11 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group">
         <?= Html::a('Отменить', 
-        empty($model->id) 
-        ? ['index']
-        : ['view', 'id' => $model->id]
-        , ['class' => 'btn btn-success']) ?>
+                empty($model->id)
+                    ? ['index']                
+                    : ['view', 'id' => $model->id]
+            , ['class' => 'btn btn-default'])            
+        ?>
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 

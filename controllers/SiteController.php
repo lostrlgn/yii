@@ -2,7 +2,6 @@
 
 namespace app\controllers;
 
-use app\models\RegisterForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -10,7 +9,9 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-use yii\helpers\VarDumper;
+use app\models\RegisterForm;
+use Symfony\Component\VarDumper\VarDumper as VarDumper;
+
 
 class SiteController extends Controller
 {
@@ -29,6 +30,7 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                    
                 ],
             ],
             'verbs' => [
@@ -63,6 +65,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        //  VarDumper::dump(Yii::$app->user?->identity?->isAdmin);
+        // // VarDumper::dump(Yii::$app->user?->identity?->getUserLogin());
+        // // VarDumper::dump(Yii::$app->user?->identity?->userLogin);
+        
+        // // VarDumper::dump(Yii::$app->user->identity->login);
+        //  die;
+
         return $this->render('index');
     }
 
@@ -79,10 +88,11 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return 
-                    Yii::$app->user->identity->isAdmin
-                        ? $this->redirect('/admin')
-                        : $this->goHome();
+            Yii::$app->session->setFlash('succes', 'Вы успешно вошли в систему');
+            return  
+                Yii::$app->user->identity->isAdmin
+                        ? $this->redirect('/admin-panel')
+                        : $this->goHome();            
         }
 
         $model->password = '';
@@ -130,21 +140,36 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+
     public function actionRegister()
     {
         $model = new RegisterForm();
 
-        if($model->load(Yii::$app->request->post())) {
-            if($user = $model->register()){
-                Yii::$app->user->login($user, 60*60);
+        // if ($this->request->isPost)
+                    //false                     []
+        if ($model->load(Yii::$app->request->post())) {
+            // VarDumper::dump(Yii::$app->request->post(), 10, true); die;
 
-                return 
-                    Yii::$app->user->identity->isAdmin
+            if ($user = $model->register()) {
+                if (Yii::$app->user->login($user, 60*60)) {
+                    return Yii::$app->user->identity->isAdmin
                         ? $this->redirect('/admin')
                         : $this->goHome();
+                }
+                // VarDumper::dump($user, 1, true); die;
             }
 
+            
+            // VarDumper::dump($model, 10, true); die;
+            // VarDumper::dump(Yii::$app->request->post(), 10, true);
+            // VarDumper::dump(Yii::$app->request->post('RegisterForm'), 10, true);
+
+            // $model->name = Yii::$app->request->post('RegisterForm')['name'];
+            // $model->surname = Yii::$app->request->post('RegisterForm')['surname'];
+            // VarDumper::dump($model->attributes, 1, true); die;
         }
+
         return $this->render('register', compact('model'));
     }
 }

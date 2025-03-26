@@ -1,4 +1,25 @@
 img {
     padding: 7px;
-    bottom: 2px solid black;
+    /* border: 2px solid navy; */
+}
+
+.logo {
+    background-image: url("/img/milk.jpg");
+    min-width: 50px;
+    display: inline-block;
+    z-index: 10;
+}
+
+.color-panel {
+    background-color: #513681;
+}
+
+.btn-category {
+    background-color: rgb(51, 5, 73);
+    color: #eee;
+}
+
+.btn-category:hover {
+    background-color: rgb(121, 25, 166);
+    color: #888;
 }

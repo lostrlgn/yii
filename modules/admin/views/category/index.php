@@ -9,7 +9,8 @@ use yii\widgets\Pjax;
 /** @var yii\web\View $this */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Категория товаров';
+$this->title = 'Категории товаров';
+
 ?>
 <div class="category-index">
 
